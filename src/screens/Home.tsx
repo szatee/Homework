@@ -1,12 +1,11 @@
 import { Todo } from 'components/Todo';
-import { ITodo } from 'models/todo';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectTodos } from 'store/todos';
 import { randomColor } from 'utils/color';
 
 export const Home = memo(() => {
-  const todos: ITodo[] = useSelector(selectTodos());
+  const todos = useSelector(selectTodos());
   return (
     <>
       {todos.map((todo, index, array) => (

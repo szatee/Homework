@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { ITodo } from 'models/todo';
 import { api } from 'services/api';
 
 export const todosSlice = api.injectEndpoints({
@@ -13,16 +14,15 @@ export const { useGetTodosQuery } = todosSlice;
 
 const selectTodosResult = todosSlice.endpoints.getTodos.select('todos');
 
-export const selectTodos = (id?: string | number) =>
-  createSelector(selectTodosResult, (result) => {
-    if (result) {
-      const { data: todos = [] } = result;
+export const selectTodos = () =>
+  createSelector(selectTodosResult, (result): ITodo[] => {
+    const { data: todos = [] } = result;
+    return todos;
+  });
 
-      if (id) {
-        return (
-          todos?.find((shelter: { id: string }) => shelter.id === id) ?? {}
-        );
-      }
-      return todos;
-    }
+export const selectTodoById = (id?: string) =>
+  createSelector(selectTodosResult, (result): ITodo => {
+    const { data: todos = [] } = result;
+
+    return todos.find((todo: ITodo) => todo.id === id);
   });
