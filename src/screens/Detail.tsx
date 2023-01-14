@@ -16,6 +16,7 @@ const Wrapper = styled('div')`
 const BackButton = styled('img')`
   position: absolute;
   left: 10px;
+  cursor: pointer;
 `;
 
 export const Detail = memo(() => {
